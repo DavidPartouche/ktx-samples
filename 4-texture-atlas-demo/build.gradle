@@ -1,0 +1,65 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        google()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    }
+    dependencies {
+        classpath "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+allprojects {
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+}
+
+configure(subprojects) {
+    apply plugin: 'java'
+    apply plugin: 'kotlin'
+    sourceCompatibility = 1.6
+
+    kotlin {
+        experimental {
+            coroutines 'enable'
+        }
+    }
+}
+
+subprojects {
+    version = '0.0.1-SNAPSHOT'
+    ext.appName = 'TextureAtlasDemo'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        google()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    }
+}
+
+// Clearing Eclipse project data in root folder:
+tasks.eclipse.doLast {
+    delete '.project'
+    delete '.classpath'
+    delete '.settings/'
+}
+
+// Store the parameters you want to pass the texturePacker here...
+project.ext.texturePacker = ["images", "assets", "spritesheet"]
+
+// Import the texture packer
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+
+// Add a new task that packs the textures for you
+task(texturePacker) {
+    doLast {
+        if (project.ext.has('texturePacker')) {
+            logger.info "Calling TexturePacker: " + texturePacker
+            TexturePacker.process(texturePacker[0], texturePacker[1], texturePacker[2])
+        }
+    }
+}
