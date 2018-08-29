@@ -37,7 +37,7 @@ class TextureAtlasDemo : KtxApplicationAdapter {
                     currentAtlasKey = currentFrame.toString().padStart(4, '0')
                     sprite.setRegion(textureAtlas.findRegion(currentAtlasKey))
                 }
-                delay(1 / 60f)
+                skipFrame()
             }
         }
     }
