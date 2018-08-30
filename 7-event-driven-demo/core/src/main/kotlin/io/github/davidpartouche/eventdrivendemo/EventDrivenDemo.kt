@@ -2,15 +2,15 @@ package io.github.davidpartouche.eventdrivendemo
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
-import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import ktx.app.KtxApplicationAdapter
+import ktx.app.KtxInputAdapter
 import ktx.app.clearScreen
 import ktx.graphics.use
 
-class EventDrivenDemo : KtxApplicationAdapter, InputProcessor {
+class EventDrivenDemo : KtxApplicationAdapter, KtxInputAdapter {
 
     private lateinit var batch: SpriteBatch
     private lateinit var texture: Texture
@@ -45,30 +45,6 @@ class EventDrivenDemo : KtxApplicationAdapter, InputProcessor {
         batch.use {
             sprite.draw(batch)
         }
-    }
-
-    override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-        return false
-    }
-
-    override fun mouseMoved(screenX: Int, screenY: Int): Boolean {
-        return false
-    }
-
-    override fun keyTyped(character: Char): Boolean {
-        return false
-    }
-
-    override fun scrolled(amount: Int): Boolean {
-        return false
-    }
-
-    override fun keyUp(keycode: Int): Boolean {
-        return false
-    }
-
-    override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
-        return false
     }
 
     override fun keyDown(keycode: Int): Boolean {
